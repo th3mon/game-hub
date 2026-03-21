@@ -24,13 +24,16 @@ interface FetchGamesResponse {
 const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
 
     apiClient
       .get<FetchGamesResponse>("/games", { signal: controller.signal })
-      .then((response) => setGames(response.data.results))
+      .then((response) => {
+        setGames(response.data.results);
+      })
       .catch((error: unknown) => {
         if (error instanceof CanceledError) {
           return;
@@ -39,12 +42,18 @@ const useGames = () => {
         if (error instanceof Error) {
           return setError(error.message);
         }
+      })
+      .finally(() => {
+        // TODO: Timeout is for the testing purpose on developing time. Remove it after that phase.
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       });
 
     return () => controller.abort();
   }, []);
 
-  return { games, error };
+  return { games, error, isLoading };
 };
 
 export default useGames;
