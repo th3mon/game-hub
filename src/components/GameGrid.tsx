@@ -19,7 +19,7 @@ const GameGrid = () => {
           lg: 3,
         }}
         padding={2.5}
-        gap={10}
+        gap={3}
       >
         {skeletons.map((skeleton) => (
           <GameCardContainer key={skeleton}>
@@ -38,7 +38,7 @@ const GameGrid = () => {
         lg: 3,
       }}
       padding={2.5}
-      gap={10}
+      gap={3}
     >
       {data.map((game) => (
         <GameCardContainer key={game.id}>
