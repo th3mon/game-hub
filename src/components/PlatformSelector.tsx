@@ -1,7 +1,8 @@
+import type { Platform } from "@/hooks/useGames";
 import usePlatforms from "@/hooks/usePlatforms";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { useState } from "react";
-import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { BsChevronDown } from "react-icons/bs";
 
 const triggerStyles = {
   bg: "#666c79",
@@ -37,7 +38,12 @@ const menuItemStyles = {
   },
 };
 
-const PlatformSelector = () => {
+interface Props {
+  selectedPlatform: Platform | null;
+  onSelectPlatform: (selectedPlatform: Platform) => void;
+}
+
+const PlatformSelector = ({ selectedPlatform, onSelectPlatform }: Props) => {
   const [open, setOpen] = useState(false);
   const { data, error } = usePlatforms();
 
@@ -47,7 +53,8 @@ const PlatformSelector = () => {
     <Menu.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
       <Menu.Trigger asChild>
         <Button {...triggerStyles}>
-          Platforms {open ? <BsChevronUp /> : <BsChevronDown />}
+          {selectedPlatform ? selectedPlatform.name : "Platforms"}
+          <BsChevronDown />
         </Button>
       </Menu.Trigger>
       <Portal>
@@ -57,6 +64,7 @@ const PlatformSelector = () => {
               <Menu.Item
                 key={platform.id}
                 value={platform.slug}
+                onClick={() => onSelectPlatform(platform)}
                 {...menuItemStyles}
               >
                 {platform.name}
