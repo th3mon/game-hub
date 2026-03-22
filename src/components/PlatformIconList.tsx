@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
 import { BsNintendoSwitch, BsGlobe } from "react-icons/bs";
+import { SiSega } from "react-icons/si";
 import type { Platform } from "@/hooks/useGames";
 import type { IconType } from "react-icons";
 
@@ -27,13 +28,22 @@ const PlatformIconList = ({ platforms }: Props) => {
     ios: MdPhoneIphone,
     android: FaAndroid,
     web: BsGlobe,
+    sega: SiSega,
   };
 
   return (
     <HStack marginY={1}>
-      {platforms.map((platform) => (
-        <Icon as={iconMap[platform.slug]} color="gray.500" key={platform.id} />
-      ))}
+      {platforms.map((platform) => {
+        const IconComponent = iconMap[platform.slug];
+
+        if (!IconComponent) {
+          console.warn("Missing platform icon:", platform.slug);
+
+          return null;
+        }
+
+        return <Icon as={IconComponent} color="gray.500" key={platform.id} />;
+      })}
     </HStack>
   );
 };
