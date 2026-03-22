@@ -36,64 +36,47 @@ const menuItemStyles = {
   },
 };
 
-const SortSelector = () => {
-  const [open, setOpen] = useState(false);
+interface Props {
+  sortOrder: string;
+  onSelectSortOrder: (sortOrder: string) => void;
+}
 
-  // if (error) return null;
+const SortSelector = ({ sortOrder, onSelectSortOrder }: Props) => {
+  const sortOrders = [
+    { value: "", label: "Relevance" },
+    { value: "-added", label: "Date added" },
+    { value: "name", label: "Name" },
+    { value: "-released", label: "Release date" },
+    { value: "-metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average rating" },
+  ];
+
+  const [open, setOpen] = useState(false);
+  const currnetSortOrder = sortOrders.find(
+    (order) => order.value === sortOrder,
+  );
 
   return (
     <Menu.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
       <Menu.Trigger asChild>
         <Button {...triggerStyles}>
-          Order
+          Order by: {currnetSortOrder?.label || "Relevance"}
           <BsChevronDown />
         </Button>
       </Menu.Trigger>
       <Portal>
         <Menu.Positioner>
           <Menu.Content {...menuContentStyles}>
-            <Menu.Item
-              value="value"
-              onClick={() => console.log("test")}
-              {...menuItemStyles}
-            >
-              Relevance
-            </Menu.Item>
-            <Menu.Item
-              value="value"
-              onClick={() => console.log("test")}
-              {...menuItemStyles}
-            >
-              Date added
-            </Menu.Item>
-            <Menu.Item
-              value="value"
-              onClick={() => console.log("test")}
-              {...menuItemStyles}
-            >
-              Name
-            </Menu.Item>
-            <Menu.Item
-              value="value"
-              onClick={() => console.log("test")}
-              {...menuItemStyles}
-            >
-              Release date
-            </Menu.Item>
-            <Menu.Item
-              value="value"
-              onClick={() => console.log("test")}
-              {...menuItemStyles}
-            >
-              Popularity
-            </Menu.Item>
-            <Menu.Item
-              value="value"
-              onClick={() => console.log("test")}
-              {...menuItemStyles}
-            >
-              Average rating
-            </Menu.Item>
+            {sortOrders.map((order) => (
+              <Menu.Item
+                key={order.value}
+                value={order.value}
+                onClick={() => onSelectSortOrder(order.value)}
+                {...menuItemStyles}
+              >
+                {order.label}
+              </Menu.Item>
+            ))}
           </Menu.Content>
         </Menu.Positioner>
       </Portal>
