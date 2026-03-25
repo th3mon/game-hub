@@ -43,7 +43,7 @@ const GameGrid = ({ gameQuery }: Props) => {
         lg: 3,
       }}
       padding={2.5}
-      gap={3}
+      gap={6}
     >
       {data.map((game) => (
         <GameCardContainer key={game.id}>
