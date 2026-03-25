@@ -38,10 +38,7 @@ const useData = <T>(
           }
         })
         .finally(() => {
-          // TODO: Timeout is for the testing purpose on developing time. Remove it after that phase.
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
+          setLoading(false);
         });
 
       return () => controller.abort();
