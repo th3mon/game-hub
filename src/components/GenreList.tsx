@@ -1,13 +1,6 @@
 import useGenres, { type Genre } from "@/hooks/useGenres";
 import getCroppedImageUrl from "@/services/image-url";
-import {
-  Button,
-  Heading,
-  HStack,
-  Image,
-  List,
-  Spinner,
-} from "@chakra-ui/react";
+import { Button, Heading, HStack, Image, List } from "@chakra-ui/react";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
@@ -15,15 +8,9 @@ interface Props {
 }
 
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
-  const { data, error, isLoading } = useGenres();
+  const { data } = useGenres();
   const addFullWidth = (text: string) =>
     text.length > 13 && text.split(" ").length > 1 ? "full" : "";
-
-  if (error) return null;
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   return (
     <>

@@ -45,9 +45,7 @@ interface Props {
 
 const PlatformSelector = ({ selectedPlatform, onSelectPlatform }: Props) => {
   const [open, setOpen] = useState(false);
-  const { data, error } = usePlatforms();
-
-  if (error) return null;
+  const { data } = usePlatforms();
 
   return (
     <Menu.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
