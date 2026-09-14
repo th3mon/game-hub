@@ -1,11 +1,6 @@
 import type { GameQuery } from "@/App";
 import apiClient from "@/services/api-client";
-
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
-}
+import type { Platform } from "./usePlatforms";
 
 export interface Game {
   id: number;
@@ -55,8 +50,7 @@ const createGamesResource = (gameQuery: GameQuery): GamesResource => {
     .catch((error: unknown) => {
       gamesCache.set(createCacheKey(gameQuery), {
         status: "rejected",
-        error:
-          error instanceof Error ? error : new Error("Failed to fetch games."),
+        error: error instanceof Error ? error : new Error("Failed to fetch games."),
       });
     });
 
