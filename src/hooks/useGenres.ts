@@ -13,6 +13,7 @@ const useGenres = () =>
     queryKey: ["genres"],
     queryFn: () =>
       apiClient.get<FetchResponse<Genre>, Error>("/genres").then((response) => response.data),
+    staleTime: 86400000, // 24 hours in miliseconds
   });
 
 export default useGenres;
