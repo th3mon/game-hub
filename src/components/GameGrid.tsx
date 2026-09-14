@@ -21,9 +21,9 @@ const GameGridSkeleton = () =>
   ));
 
 const GameGridContent = ({ gameQuery }: Props) => {
-  const data = useGames(gameQuery);
+  const { data } = useGames(gameQuery);
 
-  return data.map((game) => (
+  return data?.results.map((game) => (
     <GameCardContainer key={game.id}>
       <GameCard game={game} />
     </GameCardContainer>
