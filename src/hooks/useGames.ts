@@ -16,7 +16,7 @@ export interface Game {
   rating_top: number;
 }
 
-interface FetchResponse<T> {
+export interface FetchResponse<T> {
   count: number;
   results: T[];
 }
