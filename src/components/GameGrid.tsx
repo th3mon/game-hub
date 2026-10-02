@@ -1,10 +1,10 @@
+import type { GameQuery } from "@/App";
 import useGames from "@/hooks/useGames";
 import { SimpleGrid } from "@chakra-ui/react";
+import { Suspense } from "react";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSceleton from "./GameCardSceleton";
-import type { GameQuery } from "@/App";
-import { Suspense } from "react";
 import GameGridErrorBoundary from "./GameGridErrorBoundary";
 
 interface Props {
